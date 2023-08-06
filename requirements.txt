@@ -2,3 +2,5 @@ setuptools==68.0.0
 wheel==0.41.1
 twine==4.0.2
 pytest==7.4.0
+black==23.7.0
+isort==5.12.0
