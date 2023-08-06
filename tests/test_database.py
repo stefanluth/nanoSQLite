@@ -1,6 +1,8 @@
-from nanoSQLite import NanoSQLite
-import pytest
 import os
+
+import pytest
+
+from nanoSQLite import NanoSQLite
 
 
 @pytest.fixture()
