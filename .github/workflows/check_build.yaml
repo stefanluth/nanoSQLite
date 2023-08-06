@@ -1,8 +1,8 @@
-name: Build and Check PyPI Package
+name: Test, Build and Check PyPI Package
 on: [push, pull_request]
 
 jobs:
-  build_and_check:
+  test_build_check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,7 +17,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Build and Check
+      - name: Test
         run: |
-          python setup.py sdist bdist_wheel
-          twine check dist/*
+          python -m pytest
+
+      - name: Build
+        run: python setup.py sdist bdist_wheel
+
+      - name: Check
+        run: twine check dist/*
+
