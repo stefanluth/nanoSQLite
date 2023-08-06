@@ -44,10 +44,10 @@ class NanoSQLite:
         """
         self.connection.close()
 
-    def _execute(self, query: str) -> None:
+    def execute(self, query: str) -> sqlite3.Cursor:
         with self._lock:
             with self.connection:
-                self.cursor.execute(query)
+                return self.cursor.execute(query)
 
     def create_table(self, name: str, columns: dict[str, str]) -> None:
         """
@@ -57,7 +57,7 @@ class NanoSQLite:
         :param columns: The columns of the table. Each column is a tuple of the column name and the column type.
         :type columns: dict[str, str]
         """
-        self._execute(f"CREATE TABLE {name} ({', '.join([f'{col} {columns[col]}' for col in columns])})")
+        self.execute(f"CREATE TABLE {name} ({', '.join([f'{col} {columns[col]}' for col in columns])})")
         self.tables[name] = columns
 
     def delete_table(self, name: str) -> None:
@@ -66,7 +66,7 @@ class NanoSQLite:
         :param name: The name of the table.
         :type name: str
         """
-        self._execute(f"DROP TABLE {name}")
+        self.execute(f"DROP TABLE {name}")
         self.tables.pop(name)
 
     def insert(self, table: str, data: dict[str, str]) -> None:
@@ -87,7 +87,7 @@ class NanoSQLite:
             for col in data
         ]
 
-        self._execute(f"INSERT INTO {table} ({columns}) VALUES ({', '.join([str(value) for value in values])})")
+        self.execute(f"INSERT INTO {table} ({columns}) VALUES ({', '.join([str(value) for value in values])})")
 
     def update(self, table: str, data: dict[str, str], where: dict[str, str]) -> None:
         """
@@ -112,7 +112,7 @@ class NanoSQLite:
             for col in where
         ]
 
-        self._execute(f"UPDATE {table} SET {', '.join(converted_data)} WHERE {', '.join(converted_where)}")
+        self.execute(f"UPDATE {table} SET {', '.join(converted_data)} WHERE {', '.join(converted_where)}")
 
     def delete(self, table: str, where: dict[str, str]) -> None:
         """
@@ -131,7 +131,7 @@ class NanoSQLite:
             for col in where
         ]
 
-        self._execute(f"DELETE FROM {table} WHERE {', '.join(converted_where)}")
+        self.execute(f"DELETE FROM {table} WHERE {', '.join(converted_where)}")
 
     def select(self, table: str, columns: list[str], where: dict[str, str]) -> list[dict] | None:
         """
