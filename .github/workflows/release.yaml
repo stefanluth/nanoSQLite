@@ -1,4 +1,4 @@
-name: Test, Build and Check PyPI Package
+name: Release PyPI Package
 
 on:
   workflow_run:
