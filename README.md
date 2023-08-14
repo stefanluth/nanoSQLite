@@ -1,12 +1,17 @@
 # nanoSQLite
 
-`nanoSQLite` is a lightweight Python wrapper for SQLite.
-With around 200 lines of Python code, it provides an uncomplicated interface for managing SQLite databases.
+`nanoSQLite` is a minimalistic SQLite wrapper tailored for those who feel JSON isn't quite right for data storage but
+can't be bothered to dive deep into setting up a full-fledged ORM.
+
+Sometimes, you just want a tiny step up without all the fuss.
+With less than 300 lines of Python code, it provides an uncomplicated interface for managing SQLite databases.
 
 Despite its simplicity, nanoSQLite offers a robust set of functionalities that enable you to interact with
 SQLite databases seamlessly, without having to worry about managing cursors and connections manually.
 
 It's designed to make working with SQLite in Python as straightforward and Pythonic as possible.
+
+Ideal for small projects, prototypes, or when you just want a break from JSON but aren't ready for heavy ORM lifting.
 
 ## Features
 
@@ -17,7 +22,7 @@ It's designed to make working with SQLite in Python as straightforward and Pytho
 - Robust: The `sqlite3` module is part of the Python standard library and has been extensively tested.
 - Pythonic: The nanoSQLite API is designed to be as Pythonic as possible, which makes it intuitive and easy to use.
 - Pure Python: nanoSQLite is written with no dependencies.
-- Lightweight: nanoSQLite is a single-file module with around 200 lines of code.
+- Lightweight: nanoSQLite is a single-file module with less than 300 lines of code.
 - Open Source: nanoSQLite is distributed under the MIT license.
 
 ## Examples
