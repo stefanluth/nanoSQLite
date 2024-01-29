@@ -9,13 +9,13 @@ def convert_to_bool(value) -> bool:
     if isinstance(value, bool):
         return value
 
-    if isinstance(value, str):
+    elif isinstance(value, str):
         if value.lower() in ["true", "1"]:
             return True
         elif value.lower() in ["false", "0"]:
             return False
 
-    if isinstance(value, int) or isinstance(value, float):
+    elif isinstance(value, int) or isinstance(value, float):
         if value == 1:
             return True
         elif value == 0:
@@ -93,7 +93,12 @@ class NanoSQLite:
         if len(columns) == 0:
             raise ValueError("At least one column must be specified.")
 
-        self.execute(f"CREATE TABLE {name} ({', '.join([f'{col} {columns[col]}' for col in columns])})")
+        try:
+            self.execute(f"CREATE TABLE {name} ({', '.join([f'{col} {columns[col]}' for col in columns])})")
+        except sqlite3.OperationalError as e:
+            if "already exists" not in str(e):
+                raise e
+
         self.tables[name] = columns
 
     def delete_table(self, name: str) -> None:
